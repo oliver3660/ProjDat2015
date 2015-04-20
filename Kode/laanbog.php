@@ -1,0 +1,11 @@
+<div id="content">
+	<h1>Lån bog</h1>
+	<form>
+		Din email:
+		<input type="text" name="email">
+		Bog nummer:
+		<input type="text" name="bognr">
+		<br>
+		<input class="button" type="submit" value="Lån">
+	</form>
+</div>
