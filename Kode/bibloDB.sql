@@ -1,14 +1,20 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.1.1
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Apr 26, 2015 at 02:48 PM
--- Server version: 5.5.42
--- PHP Version: 5.6.7
+-- Vært: 127.0.0.1
+-- Genereringstid: 04. 05 2015 kl. 16:00:40
+-- Serverversion: 5.6.17
+-- PHP-version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `bibliotek`
@@ -17,153 +23,113 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bog`
+-- Struktur-dump for tabellen `bog`
 --
 
-CREATE TABLE `bog` (
-  `boID` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `bog` (
+  `boID` int(11) NOT NULL AUTO_INCREMENT,
   `Titel` varchar(255) NOT NULL,
-  `Forfatter` varchar(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `Forfatter` varchar(255) NOT NULL,
+  PRIMARY KEY (`boID`),
+  KEY `titel` (`Titel`),
+  KEY `forfatter` (`Forfatter`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `bog`
+-- Data dump for tabellen `bog`
 --
 
 INSERT INTO `bog` (`boID`, `Titel`, `Forfatter`) VALUES
-(1, 'Stor fed pik', 'Piet Hein');
+(1, 'stor fed pik', 'piet hein'),
+(2, 'stor fed pik', 'piet hein');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `brugere`
+-- Struktur-dump for tabellen `brugere`
 --
 
-CREATE TABLE `brugere` (
+CREATE TABLE IF NOT EXISTS `brugere` (
   `Navn` varchar(255) NOT NULL,
   `Mail` varchar(255) NOT NULL,
-  `bID` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `bID` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`bID`),
+  UNIQUE KEY `email` (`Mail`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `brugere`
+-- Data dump for tabellen `brugere`
 --
 
 INSERT INTO `brugere` (`Navn`, `Mail`, `bID`) VALUES
-('Casper Helms', 'ostsnabbelaost.dk', 1);
+('oliver kogut', 'oliver@kogut.dk', 1),
+('osten', 'ost@ost.dk', 2);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rykker`
+-- Struktur-dump for tabellen `rykker`
 --
 
-CREATE TABLE `rykker` (
-  `rID` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `rykker` (
+  `rID` int(11) NOT NULL AUTO_INCREMENT,
   `uID` int(11) NOT NULL,
-  `dato` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `rdato` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Antal` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`rID`),
+  KEY `uID` (`uID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
--- Dumping data for table `rykker`
+-- Data dump for tabellen `rykker`
 --
 
-INSERT INTO `rykker` (`rID`, `uID`, `dato`) VALUES
-(1, 2, '2015-04-26 12:45:00');
+INSERT INTO `rykker` (`rID`, `uID`, `rdato`, `Antal`) VALUES
+(7, 4, '2015-04-07 13:58:27', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `udlaan`
+-- Struktur-dump for tabellen `udlaan`
 --
 
-CREATE TABLE `udlaan` (
-  `uID` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `udlaan` (
+  `uID` int(11) NOT NULL AUTO_INCREMENT,
   `boID` int(11) NOT NULL,
   `bID` int(11) NOT NULL,
-  `dato` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `Afleveret` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+  `udato` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Afleveret` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`uID`),
+  KEY `boID` (`boID`),
+  KEY `bID` (`bID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `udlaan`
+-- Data dump for tabellen `udlaan`
 --
 
-INSERT INTO `udlaan` (`uID`, `boID`, `bID`, `dato`, `Afleveret`) VALUES
-(2, 1, 1, '2015-04-26 12:38:33', 0),
-(4, 1, 1, '2015-04-26 12:46:41', 0);
+INSERT INTO `udlaan` (`uID`, `boID`, `bID`, `udato`, `Afleveret`) VALUES
+(1, 1, 1, '2015-03-11 11:37:22', 0),
+(4, 2, 2, '2015-03-03 11:12:31', 0),
+(5, 1, 1, '2015-05-04 10:44:49', 1);
 
 --
--- Indexes for dumped tables
---
-
---
--- Indexes for table `bog`
---
-ALTER TABLE `bog`
-  ADD PRIMARY KEY (`boID`),
-  ADD KEY `titel` (`Titel`),
-  ADD KEY `forfatter` (`Forfatter`);
-
---
--- Indexes for table `brugere`
---
-ALTER TABLE `brugere`
-  ADD PRIMARY KEY (`bID`),
-  ADD UNIQUE KEY `email` (`Mail`);
-
---
--- Indexes for table `rykker`
---
-ALTER TABLE `rykker`
-  ADD PRIMARY KEY (`rID`),
-  ADD KEY `uID` (`uID`);
-
---
--- Indexes for table `udlaan`
---
-ALTER TABLE `udlaan`
-  ADD PRIMARY KEY (`uID`),
-  ADD KEY `boID` (`boID`),
-  ADD KEY `bID` (`bID`);
-
---
--- AUTO_INCREMENT for dumped tables
+-- Begrænsninger for dumpede tabeller
 --
 
 --
--- AUTO_INCREMENT for table `bog`
---
-ALTER TABLE `bog`
-  MODIFY `boID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `brugere`
---
-ALTER TABLE `brugere`
-  MODIFY `bID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `rykker`
---
-ALTER TABLE `rykker`
-  MODIFY `rID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `udlaan`
---
-ALTER TABLE `udlaan`
-  MODIFY `uID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `rykker`
+-- Begrænsninger for tabel `rykker`
 --
 ALTER TABLE `rykker`
   ADD CONSTRAINT `rykker_ibfk_1` FOREIGN KEY (`uID`) REFERENCES `udlaan` (`uID`);
 
 --
--- Constraints for table `udlaan`
+-- Begrænsninger for tabel `udlaan`
 --
 ALTER TABLE `udlaan`
   ADD CONSTRAINT `udlaan_ibfk_1` FOREIGN KEY (`boID`) REFERENCES `bog` (`boID`),
   ADD CONSTRAINT `udlaan_ibfk_2` FOREIGN KEY (`bID`) REFERENCES `brugere` (`bID`);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

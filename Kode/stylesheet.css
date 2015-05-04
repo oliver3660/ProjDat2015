@@ -20,7 +20,7 @@ body {
 	font-weight: bold;
 }
 
-#content {
+.content {
 	float: left;
 	width: 80%;
 	text-align: center;
@@ -54,11 +54,24 @@ a {
 
 .button {
 	margin-top: 20px;
-	width: 100px;
 	height: 30px;
 	font-size: 20px;
 }
 
 form {
 	font-size: 20px;
+}
+
+#rykkerTabel {
+	float: center;
+	display: inline-block;
+	border: 2px solid black;
+	overflow: auto;
+	padding: 10px;
+	width: 60%;
+	height: 700px ;
+}
+
+td {
+	width: 200px;
 }

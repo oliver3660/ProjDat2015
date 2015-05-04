@@ -1,3 +1,18 @@
+<?php
+	$servername = "localhost";
+	$username = "root";
+	$password = "";
+	$db = "bibliotek";
+
+	// Create connection
+	$conn = mysqli_connect($servername, $username, $password, $db);
+
+	// Check connection
+	if (!$conn) {
+    	die("Connection failed: " . mysqli_connect_error());
+	}
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -31,7 +46,7 @@
 					break;
 				case "regbog":		
 					include('regbog.php');
-					break;
+					break;	
 				case "regbruger":		
 					include('regbruger.php');
 					break;
