@@ -9,26 +9,36 @@
   		$result = mysqli_query($conn, $sqlSelect);
 
   			if (mysqli_num_rows($result) < 1) {
-  				$sqlSelect2 = "SELECT bID FROM brugere WHERE Mail = '$email'";
+
+				$sqlSelect2 = "SELECT * FROM bog WHERE Deaktiveret = 0 AND boID = '$bognr'";
   				$result2 = mysqli_query($conn, $sqlSelect2);
 
   				if (mysqli_num_rows($result2) > 0) {
-  					while($row = mysqli_fetch_assoc($result2)) {
-  						$bID = $row['bID'];
-		    			$sqlInsert = "INSERT INTO udlaan (boID, bID) VALUES ('$bognr', '$bID')";
 
-		    			if (mysqli_query($conn, $sqlInsert)) {
-    						$message = "Lånet er nu registreret.";
-    					}
-    					else {
-    						$message = "Bogen til det indtastede bognummer, findes ikke i systemet.";
-    					}
+	  				$sqlSelect3 = "SELECT bID FROM brugere WHERE Mail = '$email'";
+  					$result3 = mysqli_query($conn, $sqlSelect3);
+
+  					if (mysqli_num_rows($result3) > 0) {
+  						while($row = mysqli_fetch_assoc($result3)) {
+  							$bID = $row['bID'];
+		    				$sqlInsert = "INSERT INTO udlaan (boID, bID) VALUES ('$bognr', '$bID')";
+
+			    			if (mysqli_query($conn, $sqlInsert)) {
+    							$message = "Lånet er nu registreret.";
+    						}
+    						else {
+    							$message = "Bogen til det indtastede bognummer, findes ikke i systemet.";
+    						}
         				
-    				}
-  				}
-  				else {
-  					$message = "Den indtastede mail er ikke registreret.";
-  				}
+	    				}
+  					}
+  					else {
+  						$message = "Den indtastede mail er ikke registreret.";
+	  				}
+	  			}
+	  			else {
+	  				$message = "Bogen findes ikke.";
+	  			}
 			}
 			else {
     			$message = "Bogen er allerede udlånt.";

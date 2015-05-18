@@ -1,7 +1,7 @@
 <?php
 	$servername = "localhost";
 	$username = "root";
-	$password = "";
+	$password = "root";
 	$db = "bibliotek";
 
 	// Create connection
@@ -27,8 +27,8 @@
 				<li <?php if ($_REQUEST['content']=="forside") { ?>class="active"<?php } ?>><a href="forside.php?content=forside">Forside</a></li>
 				<li <?php if ($_REQUEST['content']=="laanbog") { ?>class="active"<?php } ?>><a href="forside.php?content=laanbog">Lån bog</a></li>
 				<li <?php if ($_REQUEST['content']=="aflbog") { ?>class="active"<?php } ?>><a href="forside.php?content=aflbog">Aflever bog</a></li>
-				<li <?php if ($_REQUEST['content']=="regbog") { ?>class="active"<?php } ?>><a href="forside.php?content=regbog">Registrer bog</a></li>
-				<li <?php if ($_REQUEST['content']=="regbruger") { ?>class="active"<?php } ?>><a href="forside.php?content=regbruger">Registrer bruger</a></li>
+				<li <?php if ($_REQUEST['content']=="administrerbog") { ?>class="active"<?php } ?>><a href="forside.php?content=administrerbog">Administrer bog</a></li>
+				<li <?php if ($_REQUEST['content']=="administrerbruger") { ?>class="active"<?php } ?>><a href="forside.php?content=administrerbruger">Administrer bruger</a></li>
 				<li <?php if ($_REQUEST['content']=="rykker") { ?>class="active"<?php } ?>><a href="forside.php?content=rykker">Rykkere</a></li>
 			</ul>
 		</div>
@@ -44,11 +44,11 @@
 				case "aflbog":		
 					include('aflbog.php');
 					break;
-				case "regbog":		
-					include('regbog.php');
+				case "administrerbog":		
+					include('administrerbog.php');
 					break;	
-				case "regbruger":		
-					include('regbruger.php');
+				case "administrerbruger":		
+					include('administrerbruger.php');
 					break;
 				case "rykker":		
 					include('rykker.php');
